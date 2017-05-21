@@ -5,7 +5,7 @@
 // Login   <le-rou_c@epitech.net>
 // 
 // Started on  Sat Apr  8 11:22:19 2017 Lucien Le Roux
-// Last update Sat Apr  8 22:11:21 2017 Lucien Le Roux
+// Last update Wed May 17 19:19:33 2017 Lucien Le Roux
 //
 
 #include "CParser.hpp"
@@ -41,7 +41,7 @@ int CParser::c_newline(const std::string line, const size_t n) {
 
 int CParser::c_80(const std::string line, const size_t n) {
   size_t ndx = 81;
-  int res = (line.size() >= 80) ? -5 : 0;
+  int res = (line.size() > 80) ? -5 : 0;
 
   if (res)
     c_printError(line, res, n, ndx, "Line exceeds 80 characters");
@@ -69,7 +69,7 @@ int CParser::c_comment(const std::string line, const size_t n) {
 }
 
 int CParser::c_return(const std::string line, const size_t n) {
-  size_t ndx = line.find("return");
+  size_t ndx = line.find("return ");
   int res;
 
   if (ndx == std::string::npos) res = 0;
@@ -110,6 +110,7 @@ void CParser::c_norm(std::string file) {
   if (input) {
     if (std::find(extensions.begin(), extensions.end(), file.substr(file.rfind(".") + 1))
 	!= extensions.end()) {
+      std::cout << "[+] C Parser starting for file " << file << ":" << std::endl;
       for (n = 1; getline(input, line); n++) {
 	replaceTabs(line);
 	comment = startsWith(line, "//");
@@ -127,19 +128,22 @@ void CParser::c_norm(std::string file) {
 	  mark += c_return(line, n);
 	}
       }
-      std::cout << "C Parser is done, your mark is: " << mark << std::endl;
+      std::cout << "[-] C Parser finished for file " << file << "." << std::endl;
     } else {
-      std::cerr << "cparser: " + file + ": Does not have a valid extension, ignored" << std::endl;
+      std::cerr << "[-] cparser: " + file + ": Does not have a valid extension, ignored" << std::endl;
     }
     input.close();
   } else {
-    std::cerr << "cparser: " + file + ": No such file or directory" << std::endl;
+    std::cerr << "[-] cparser: " + file + ": No such file or directory" << std::endl;
   }
 }
 
-std::vector<std::string>      CParser::getExtensions(void) const {
+std::vector<std::string>	CParser::getExtensions(void) const {
   return extensions;
 }
-void                          CParser::addOption(const int option) {
+int				CParser::getMark(void) const {
+  return mark;
+}
+void				CParser::addOption(const int option) {
   options |= option;
 }

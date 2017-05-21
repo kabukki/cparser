@@ -42,6 +42,7 @@ int main(int ac, char **av)
     for (i = 0; i < args.size(); i++) {
       parser.c_norm(args[i]);
     }
+    std::cout << "C Parser is done, your mark is: " << parser.getMark() << std::endl;
   } else {
     std::cerr << "Usage: " << av[0] << " file [...]" << std::endl;
   }

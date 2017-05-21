@@ -5,7 +5,7 @@
 // Login   <le-rou_c@epitech.net>
 //
 // Started on  Sat Apr  8 11:19:49 2017 Lucien Le Roux
-// Last update Sat Apr  8 21:47:59 2017 Lucien Le Roux
+// Last update Wed May 17 19:13:34 2017 Lucien Le Roux
 //
 
 #ifndef CPARSER_HPP_
@@ -66,6 +66,7 @@ public:
   /* Getters */
 public:
   std::vector<std::string>	getExtensions(void) const;
+  int				getMark(void) const;
 
   /* Setters */
 public:
